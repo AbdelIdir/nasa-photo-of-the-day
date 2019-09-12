@@ -7,7 +7,8 @@ import Credit from "./credit";
 import Title from "./title";
 import Text from "./text";
 
-const nasaApi = "https://lambda-github-api-server.herokuapp.com";
+
+const nasaApi = "https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo";
 
 function App() {
   const [error, setError] = useState(null);
@@ -24,7 +25,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo")
+      .get(nasaApi)
 
       .then(res => {
         console.log(res.data);
@@ -38,15 +39,17 @@ function App() {
   
       })
       .catch(error => {
-        console.log("There is an error");
+        setError("Not Working")
        });
     
   }, []);
  
   return (
     <div className="App">
-      
-      {/* !{infos.image} ? <h3>Loading...</h3>: */}
+
+    {error && <p>{error} </p>}
+
+       {/* !{infos.image} ? <h3>Loading...</h3>:  */}
       
       <Image picture = {infos.image} />
       <Credit copyright =  {`Image Credits: ${infos.credit}`} />
