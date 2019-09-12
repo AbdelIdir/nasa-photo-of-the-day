@@ -1,71 +1,62 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import { get } from "https";
-
+import Image from "./image";
+import Credit from "./credit";
+import Title from "./title";
+import Text from "./text";
 
 const nasaApi = "https://lambda-github-api-server.herokuapp.com";
 
-
-
-
-
 function App() {
+  const [error, setError] = useState(null);
 
-const [error, setError] = useState(null);
-
-const [infos, setInfos] = useState({
-   info: []
-});
-
-
-
-useEffect(() => {
+  const [infos, setInfos] = useState({
+    image: [],
+    credit: [],
+    title: [],
+    text: []
+  });
 
 
-
-  axios.get("https://lambda-github-api-server.herokuapp.com")
-
- 
-  .then(res => {
-    console.log(res.data.explanation)
-
-    setInfos({
-
-     info: res.explanation,
-
-    });
-
-  })
-
-}, [])
-  // .then(response => {
-  //   console.log(response.data);
-  //   const art = response.data.articles;
-  //   console.log(art);
-  //   for( content in art){
-  //     const contentArr = art[content];
-  //     console.log(contentArr);
-  //     contentArr.forEach(element => {
-  //         const newArr = cardMaker(element);
-  //         containCards.appendChild(newArr);
-  //     });
-  //   }
-  // })
-  // .catch(error => {
-  //  console.error(error)
-  // });
   
 
+  useEffect(() => {
+    axios
+      .get("https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo")
 
+      .then(res => {
+        console.log(res.data);
 
-
+        setInfos({
+          image: res.data.hdurl,
+          credit: res.data.copyright,
+          title: res.data.title,
+          text: res.data.explanation
+        });
+  
+      })
+      .catch(error => {
+        console.log("There is an error");
+       });
+    
+  }, []);
+ 
   return (
     <div className="App">
+      
+      {/* !{infos.image} ? <h3>Loading...</h3>: */}
+      
+      <Image picture = {infos.image} />
+      <Credit copyright =  {`Image Credits: ${infos.credit}`} />
+      <Title anH1 = {infos.title} />
+      <Text longText = {infos.text} /> 
+
       <p>
-        Read through the instructions in the README.md file to build your NASA
-        app! Have fun 🚀!
+        Project of : -Abdel-
       </p>
+      
     </div>
   );
 }
