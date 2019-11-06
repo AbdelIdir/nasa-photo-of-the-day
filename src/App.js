@@ -14,8 +14,6 @@ function App() {
 
   // const onChangeHandler = date => setDate({ date })
 
-
-
   //   onChange={setDate()}
   //   value={this.state.date}
 
@@ -48,7 +46,6 @@ function App() {
         number={number}
       />
       {/* <p>{ Date()} </p> */}
-
     </div>
   );
 }
