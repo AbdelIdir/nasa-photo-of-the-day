@@ -31,21 +31,11 @@ h1 {
     &:hover {
         color: green;
         before: {content:"Reply!"}
-    }
+    }`
 
 
-`
 
-// export function ItemDisplay(props) {
-//   const { name, action } = props;
-//   return (
-//     <StyledItemDisplay name={name} bold className="item-display">
-//       <span>{name}</span>
-//       <button onClick={evt => action(name)}>Add Item to Cart</button>
-//     </StyledItemDisplay>
-//   );
-// }
-
+ 
 
 
 

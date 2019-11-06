@@ -1,65 +1,42 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
-import { get } from "https";
-import Image from "./image";
-import Credit from "./credit";
-import Title from "./title";
-import Text from "./text";
-
-
-const nasaApi = "https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo";
+import PicOfDayArticle from "./PicOfDayArticle";
+import "bootstrap/dist/css/bootstrap.min.css";
+import styled from "styled-components";
+// import { Button, Card } from "react-bootstrap";
 
 function App() {
+  const [pictureInfo, setPictureInfo] = useState([]);
+  const [number, setNumber] = useState(0);
   const [error, setError] = useState(null);
 
-  const [infos, setInfos] = useState({
-    image: [],
-    credit: [],
-    title: [],
-    text: []
-  });
-
-
-  
-
+  function eventHandler(e) {
+    setNumber(number + 1);
+  }
   useEffect(() => {
     axios
-      .get(nasaApi)
-
-      .then(res => {
-        console.log(res.data);
-
-        setInfos({
-          image: res.data.hdurl,
-          credit: res.data.copyright,
-          title: res.data.title,
-          text: res.data.explanation
-        });
-  
+      .get("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
+      .then(response => {
+        setPictureInfo(response.data);
       })
       .catch(error => {
-        setError("Not Working")
-       });
-    
+        setError("Not Working, the API URL could be broken");
+      });
   }, []);
- 
+
   return (
     <div className="App">
+      {error && <p>{error} </p>}
 
-    {error && <p>{error} </p>}
-
-       {/* !{infos.image} ? <h3>Loading...</h3>:  */}
-      
-      <Image picture = {infos.image} />
-      <Credit copyright =  {`Image Credits: ${infos.credit}`} />
-      <Title anH1 = {infos.title} />
-      <Text longText = {infos.text} /> 
-
-      <p>
-        Project of : -Abdel-
-      </p>
-      
+      <PicOfDayArticle
+        title={pictureInfo.title}
+        date={pictureInfo.date}
+        explanation={pictureInfo.explanation}
+        hdurl={pictureInfo.hdurl}
+        eventHandler={eventHandler}
+        number={number}
+      />
     </div>
   );
 }
