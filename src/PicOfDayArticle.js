@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
+import Calendar from "react-calendar";
 
 const PicOfDayArticle = props => {
   // useEffect(() => {
@@ -23,14 +24,22 @@ const PicOfDayArticle = props => {
         <p className="description ">{props.explanation}</p>
       </div> */}
 
-      <Card style={{ width: "69rem" }}>
+      {/* const [Date, setDate] = useState("") */}
+
+      <Card style={{ width: "59rem" }}>
         <Card.Img variant="top" src={props.hdurl} />
         <Card.Body>
-          <Card.Title>NASA picture of the day: {props.title}</Card.Title>
-          <p className="date">{props.date}</p>
+          <Card.Title>NASA picture of the day:{props.title}</Card.Title>
+
+          <p className="date">
+            {props.date}{" "}
+            <Calendar
+            //   onChange={setDate()}
+            //   value={this.state.date}
+            />
+          </p>
           <Card.Text>{props.explanation}</Card.Text>
           <a href="https://www.nasa.gov">
-            {" "}
             <Button variant="primary">Learn more about space and NASA</Button>
           </a>
         </Card.Body>
