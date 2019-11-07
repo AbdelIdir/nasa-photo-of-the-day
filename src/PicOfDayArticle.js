@@ -1,13 +1,28 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Card } from "react-bootstrap";
-import Calendar from "react-calendar";
+// import Calendar from "react-calendar";
+// import { DatePicker } from "antd";
 
 const PicOfDayArticle = props => {
   // useEffect(() => {
-
   //   }, []);
 
+  //   function onChange(date, dateString) {
+  //    return  console.log(date, dateString);
+  //   }
+
+  // function hhh (){
+  //     return "hsdsdsdi"
+  // };
+
+  //   console.log("hi");
+
+
+  
+
+
   return (
+
     <div className="container">
       {/* <header >
           <button onClick = {props.eventHandler}>
@@ -31,13 +46,9 @@ const PicOfDayArticle = props => {
         <Card.Body>
           <Card.Title>NASA picture of the day:{props.title}</Card.Title>
 
-          <p className="date">
-            {props.date}{" "}
-            <Calendar
-            //   onChange={setDate()}
-            //   value={this.state.date}
-            />
-          </p>
+          <p className="date">{props.date} </p>
+          {/* <DatePicker  onChange = {props.onChange} /> */}
+
           <Card.Text>{props.explanation}</Card.Text>
           <a href="https://www.nasa.gov">
             <Button variant="primary">Learn more about space and NASA</Button>

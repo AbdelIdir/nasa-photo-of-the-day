@@ -1,5 +1,6 @@
 import React from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
+const Title = () => {
 
 
 // const bigPadding = '4px';
@@ -20,33 +21,5 @@ import styled from 'styled-components';
 //     }
 //   }
 // `
-
-const TitleStyle = styled.div`
-
-border: 5px solid red;
-
-h1 {
-    color: blue;
-    h1:hover:before { content:" hmmmm"};
-    &:hover {
-        color: green;
-        before: {content:"Reply!"}
-    }`
-
-
-
- 
-
-
-
-
-function Title(props) {
-  const { anH1 } = props;
-  return (
-    <TitleStyle>
-      <h1>{anH1}</h1>
-    </TitleStyle>
-  );
 }
-
-export default Title;
+export default Title ;
