@@ -22,9 +22,12 @@ function App() {
   //   setNumber(number + 1);
   // }
 
+
+
+
   function onChange(date, dateString) {
-    console.log(dateString)
-    setdate1(dateString)
+    console.log(dateString);
+    setdate1(dateString);
   }
 
   useEffect(() => {
@@ -36,14 +39,15 @@ function App() {
         setPictureInfo(response.data);
       })
       .catch(error => {
-        setError("Not Working, the API URL could be broken");
+        setError(error.message);
       });
   }, [date1]);
 
-  // if (!pictureInfo.hdurl) return <h3>Loading...Please hold on</h3>;
+  if (!pictureInfo ) return <h3>Loading...Please hold on</h3>;
+
   return (
     <div className="App">
-      {error && <p>{error} </p>}
+      {error&& <p>{error.message} </p>}
 
       <PicOfDayArticle
         title={pictureInfo.title}
@@ -54,7 +58,7 @@ function App() {
         number={number}
         onChange={onChange}
       />
-      <DatePicker  onChange = {onChange} />
+      <DatePicker onChange={onChange} />
       {/* <p>{ Date()} </p> */}
     </div>
   );
