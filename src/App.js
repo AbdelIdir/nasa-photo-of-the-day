@@ -1,65 +1,65 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
-import { get } from "https";
-import Image from "./image";
-import Credit from "./credit";
-import Title from "./title";
-import Text from "./text";
-
-
-const nasaApi = "https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo";
+import PicOfDayArticle from "./PicOfDayArticle";
+import "bootstrap/dist/css/bootstrap.min.css";
+import styled from "styled-components";
+// import { Button, Card } from "react-bootstrap";
+import { DatePicker } from "antd";
 
 function App() {
+  const [pictureInfo, setPictureInfo] = useState([]);
+  const [number, setNumber] = useState(0);
   const [error, setError] = useState(null);
+  const [date1, setdate1] = useState();
 
-  const [infos, setInfos] = useState({
-    image: [],
-    credit: [],
-    title: [],
-    text: []
-  });
+  // const onChangeHandler = date => setDate({ date })
+
+  //   onChange={setDate()}
+  //   value={this.state.date}
+
+  // function eventHandler(e) {
+  //   setNumber(number + 1);
+  // }
 
 
-  
+
+
+  function onChange(date, dateString) {
+    console.log(dateString);
+    setdate1(dateString);
+  }
 
   useEffect(() => {
     axios
-      .get(nasaApi)
-
-      .then(res => {
-        console.log(res.data);
-
-        setInfos({
-          image: res.data.hdurl,
-          credit: res.data.copyright,
-          title: res.data.title,
-          text: res.data.explanation
-        });
-  
+      .get(
+        `https://api.nasa.gov/planetary/apod?api_key=dCT5VofNFrUAI6zPXdKUHtAOKgSyRyzhOR6WanbC&date=${date1}`
+      )
+      .then(response => {
+        setPictureInfo(response.data);
       })
       .catch(error => {
-        setError("Not Working")
-       });
-    
-  }, []);
- 
+        setError(error.message);
+      });
+  }, [date1]);
+
+  if (!pictureInfo ) return <h3>Loading...Please hold on</h3>;
+
   return (
     <div className="App">
+      {error&& <p>{error.message} </p>}
 
-    {error && <p>{error} </p>}
-
-       {/* !{infos.image} ? <h3>Loading...</h3>:  */}
-      
-      <Image picture = {infos.image} />
-      <Credit copyright =  {`Image Credits: ${infos.credit}`} />
-      <Title anH1 = {infos.title} />
-      <Text longText = {infos.text} /> 
-
-      <p>
-        Project of : -Abdel-
-      </p>
-      
+      <PicOfDayArticle
+        title={pictureInfo.title}
+        date={pictureInfo.date}
+        explanation={pictureInfo.explanation}
+        hdurl={pictureInfo.hdurl}
+        // eventHandler={eventHandler}
+        number={number}
+        onChange={onChange}
+      />
+      <DatePicker onChange={onChange} />
+      {/* <p>{ Date()} </p> */}
     </div>
   );
 }

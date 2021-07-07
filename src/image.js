@@ -5,8 +5,8 @@ function Image(props) {
 
   return (
     <>
-      <div> <img className='image' src={picture}></img>
-      
+      <div>
+        <img className="image" src={picture}></img>
       </div>
     </>
   );
